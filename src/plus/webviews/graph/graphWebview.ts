@@ -2,7 +2,13 @@ import { Disposable, ViewColumn, window } from 'vscode';
 import { configuration } from '../../../configuration';
 import { Commands } from '../../../constants';
 import type { Container } from '../../../container';
-import { GitLog, Repository, RepositoryChangeEvent } from '../../../git/models';
+import {
+	GitCommit as GitCommitModel,
+	GitLog,
+	GitStashCommit,
+	Repository,
+	RepositoryChangeEvent
+} from '../../../git/models';
 import { RepositoryPicker } from '../../../quickpicks/repositoryPicker';
 import { WorkspaceStorageKeys } from '../../../storage';
 import { IpcMessage, onIpc } from '../../../webviews/protocol';
@@ -187,6 +193,19 @@ export class GraphWebview extends WebviewWithConfigBase<State> {
 		return Array.from(branches.values);
 	}
 
+	private async getStashCommits(): Promise<GitStashCommit[] | undefined> {
+		if (this.selectedRepository === undefined) {
+			return undefined;
+		}
+
+		const stash = await this.container.git.getStash(this.selectedRepository.uri);
+		if (stash === undefined || stash.commits === undefined) {
+			return undefined;
+		}
+
+		return Array.from(stash?.commits?.values());
+	}
+
 	private async pickRepository(repositories: Repository[]): Promise<Repository | undefined> {
 		if (repositories.length === 0) {
 			return undefined;
@@ -244,19 +263,21 @@ export class GraphWebview extends WebviewWithConfigBase<State> {
 			this.title = `${this.defaultTitle}: ${this.selectedRepository.formattedName}`;
 		}
 
-		const [commitsAndLog, remotes, tags, branches] = await Promise.all([
+		const [commitsAndLog, remotes, tags, branches, stashCommits] = await Promise.all([
 			this.getCommits(),
 			this.getRemotes(),
 			this.getTags(),
 			this.getBranches(),
+			this.getStashCommits()
 		]);
 
 		const log = commitsAndLog?.log;
+		const commits = [...(commitsAndLog?.commits ?? []), ...(stashCommits ?? [])];
 
 		return {
 			repositories: formatRepositories(repositories),
 			selectedRepository: this.selectedRepository?.path,
-			commits: formatCommits(commitsAndLog?.commits ?? []),
+			commits: formatCommits(commits),
 			remotes: remotes, // TODO: add a format function
 			branches: branches, // TODO: add a format function
 			tags: tags, // TODO: add a format function
@@ -271,14 +292,31 @@ export class GraphWebview extends WebviewWithConfigBase<State> {
 	}
 }
 
-function formatCommits(commits: GitCommit[]): GitCommit[] {
-	return commits.map(({ sha, author, message, parents, committer }) => ({
-		sha: sha,
-		author: author,
-		message: message,
-		parents: parents,
-		committer: committer,
+function formatCommits(commits: (GitCommit | GitStashCommit)[]): GitCommit[] {
+	return commits.map((commit: GitCommit) => ({
+		sha: commit.sha,
+		author: commit.author,
+		message: String(commit.message).length ? commit.message : commit.summary,
+		parents: commit.parents,
+		committer: commit.committer,
+		type: getCommitType(commit)
 	}));
+}
+
+// TODO: Move constant to a better home
+const enum CommitType {
+	CommitNode = 'commit-node',
+	StashNode = 'stash-node',
+}
+
+function getCommitType(commit: GitCommit | GitStashCommit): CommitType {
+	let type: CommitType = CommitType.CommitNode;
+	if (GitCommitModel.isStash(commit)) {
+		type = CommitType.StashNode;
+	}
+
+	// TODO: add other needed commit types for graph
+	return type;
 }
 
 function formatRepositories(repositories: Repository[]): RepositoryData[] {
