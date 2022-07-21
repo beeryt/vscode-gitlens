@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+
+	<body class="preload">
+		<div class="commit-detail-panel">
+			<header class="commit-detail-panel__header" role="banner">
+				<h1 class="commit-detail-panel__title">
+					<span class="codicon codicon-git-commit commit-detail-panel__title-icon"></span>
+					Commit: <span data-region="commit-title"></span>
+				</h1>
+			</header>
+			<!-- this should be present only when more than one commit is selected -->
+			<nav class="commit-detail-panel__nav" aria-label="list of selected commits" data-region="choices">
+				<p class="commit-detail-panel__commit-count">
+					Selected commits: <span data-region="choices-count">2</span>
+				</p>
+				<ul class="commit-detail-panel__commits" data-region="choices-list">
+					<li class="commit-detail-panel__commit">
+						<skeleton-loader></skeleton-loader>
+					</li>
+					<li class="commit-detail-panel__commit">
+						<skeleton-loader></skeleton-loader>
+					</li>
+				</ul>
+			</nav>
+			<main class="commit-details commit-detail-panel__main" id="main" tabindex="-1">
+				<div class="commit-details__commit">
+					<p class="commit-details__message" data-region="message"><skeleton-loader></skeleton-loader></p>
+
+					<ul class="commit-details__authors" aria-label="Authors">
+						<li class="commit-details__author" data-region="author"><skeleton-loader></skeleton-loader></li>
+						<li class="commit-details__author" data-region="committer">
+							<skeleton-loader></skeleton-loader>
+						</li>
+					</ul>
+
+					<section class="commit-details__pull-request" aria-label="Pull request" data-region="pull-request">
+						<skeleton-loader lines="2"></skeleton-loader>
+					</section>
+
+					<section class="commit-details__issue" aria-label="Issue" data-region="issue">
+						<skeleton-loader lines="2"></skeleton-loader>
+					</section>
+				</div>
+
+				<section class="commit-details__files" aria-label="Files changed">
+					<!-- TODO: change summary (mod, add, deletes) -->
+					<ul class="change-list" data-region="files">
+						<li class="change-list__item">
+							<skeleton-loader></skeleton-loader>
+						</li>
+						<li class="change-list__item">
+							<skeleton-loader></skeleton-loader>
+						</li>
+						<li class="change-list__item">
+							<skeleton-loader></skeleton-loader>
+						</li>
+					</ul>
+				</section>
+			</main>
+		</div>
+		#{endOfBody}
+		<style nonce="#{cspNonce}">
+			@font-face {
+				font-family: 'codicon';
+				src: url('#{webroot}/codicon.ttf?404cbc4fe3a64b9a93064eef76704c79') format('truetype');
+			}
+		</style>
+	</body>
+</html>
