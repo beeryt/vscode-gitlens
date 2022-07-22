@@ -25,11 +25,6 @@ export type GitRemote = Record<string, any>;
 export type GitTag = Record<string, any>;
 export type GitBranch = Record<string, any>;
 
-export const enum GitCommitType {
-	COMMIT = 'commit',
-	STASH = 'stash'
-}
-
 export interface GraphColumnConfig {
 	width: number;
 }

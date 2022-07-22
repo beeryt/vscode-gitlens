@@ -1,3 +1,5 @@
+import { CommitType } from '@gitkraken/gitkraken-components/lib/components/graph/GraphContainer';
+import { commitNodeType, stashNodeType } from '@gitkraken/gitkraken-components/lib/domain/commit/CommitConstants';
 import { Disposable, ViewColumn, window } from 'vscode';
 import { configuration } from '../../../configuration';
 import { Commands } from '../../../constants';
@@ -21,7 +23,6 @@ import {
 	DidChangeNotificationType,
 	GitBranch,
 	GitCommit,
-	GitCommitType,
 	GitRemote,
 	GitTag,
 	GraphColumnConfig,
@@ -305,10 +306,10 @@ function formatCommits(commits: (GitCommit | GitStashCommit)[]): GitCommit[] {
 	}));
 }
 
-function getCommitType(commit: GitCommit | GitStashCommit): GitCommitType {
-	let type = GitCommitType.COMMIT;
+function getCommitType(commit: GitCommit | GitStashCommit): CommitType {
+	let type: CommitType = commitNodeType;
 	if (GitCommitModel.isStash(commit)) {
-		type = GitCommitType.STASH;
+		type = stashNodeType;
 	}
 
 	// TODO: add other needed commit types for graph
