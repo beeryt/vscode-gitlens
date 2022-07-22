@@ -7699,99 +7699,6 @@
 			],
 			"editor/title": [
 				{
-					"command": "gitlens.diffWithWorking",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && !isInDiffEditor",
-					"group": "navigation@-99"
-				},
-				{
-					"command": "gitlens.diffWithWorkingInDiffLeft",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@-99"
-				},
-				{
-					"command": "gitlens.diffWithWorkingInDiffRight",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffRightEditor",
-					"group": "navigation@-99"
-				},
-				{
-					"command": "gitlens.openWorkingFile",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme == git && !isInDiffEditor",
-					"group": "navigation@-98"
-				},
-				{
-					"command": "gitlens.openWorkingFile",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && !isInDiffEditor",
-					"group": "navigation@-98"
-				},
-				{
-					"command": "gitlens.openWorkingFileInDiffLeft",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@-98"
-				},
-				{
-					"command": "gitlens.openWorkingFileInDiffRight",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffRightEditor",
-					"group": "navigation@-98"
-				},
-				{
-					"command": "gitlens.openRevisionFileInDiffLeft",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@-97"
-				},
-				{
-					"command": "gitlens.openRevisionFileInDiffRight",
-					"when": "gitlens:activeFileStatus =~ /revision/ && resourceScheme =~ /^(?!(file|git)$).*$/ && isInDiffRightEditor",
-					"group": "navigation@-97"
-				},
-				{
-					"command": "gitlens.diffWithPrevious",
-					"alt": "gitlens.diffWithRevision",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && !isInDiffEditor",
-					"group": "navigation@97"
-				},
-				{
-					"command": "gitlens.diffWithPreviousInDiffLeft",
-					"alt": "gitlens.diffWithRevision",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@97"
-				},
-				{
-					"command": "gitlens.diffWithPreviousInDiffRight",
-					"alt": "gitlens.diffWithRevision",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffRightEditor",
-					"group": "navigation@97"
-				},
-				{
-					"command": "gitlens.showQuickRevisionDetails",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && !isInDiffEditor",
-					"group": "navigation@98"
-				},
-				{
-					"command": "gitlens.showQuickRevisionDetailsInDiffLeft",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@98"
-				},
-				{
-					"command": "gitlens.showQuickRevisionDetailsInDiffRight",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffRightEditor",
-					"group": "navigation@98"
-				},
-				{
-					"command": "gitlens.diffWithNext",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && !isInDiffEditor",
-					"group": "navigation@99"
-				},
-				{
-					"command": "gitlens.diffWithNextInDiffLeft",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffEditor && !isInDiffRightEditor",
-					"group": "navigation@99"
-				},
-				{
-					"command": "gitlens.diffWithNextInDiffRight",
-					"when": "gitlens:activeFileStatus =~ /tracked/ && config.gitlens.menus.editorGroup.compare && isInDiffRightEditor",
-					"group": "navigation@99"
-				},
-				{
 					"command": "gitlens.toggleFileBlame",
 					"when": "config.gitlens.fileAnnotations.command == blame && gitlens:activeFileStatus =~ /blameable/ && !gitlens:annotationStatus && config.gitlens.menus.editorGroup.blame",
 					"group": "navigation@100",
@@ -7823,11 +7730,6 @@
 					"command": "gitlens.clearFileAnnotations",
 					"when": "gitlens:activeFileStatus =~ /blameable/ && gitlens:annotationStatus == computed && config.gitlens.menus.editorGroup.blame",
 					"group": "navigation@100"
-				},
-				{
-					"command": "gitlens.refreshTimelinePage",
-					"when": "gitlens:timelinePage:focused",
-					"group": "navigation@-99"
 				}
 			],
 			"editor/title/context": [
