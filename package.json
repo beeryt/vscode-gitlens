@@ -63,6 +63,7 @@
 		"onView:gitlens.views.contributors",
 		"onView:gitlens.views.searchAndCompare",
 		"onView:gitlens.views.worktrees",
+		"onView:gitlens.views.commitDetails",
 		"onWebviewPanel:gitlens.welcome",
 		"onWebviewPanel:gitlens.settings",
 		"onWebviewPanel:gitlens.commitDetails",
@@ -10925,6 +10926,15 @@
 				}
 			],
 			"scm": [
+				{
+					"type": "webview",
+					"id": "gitlens.views.commitDetails",
+					"name": "Commit Details",
+					"when": "!gitlens:disabled",
+					"contextualTitle": "GitLens",
+					"icon": "images/views/commits.svg",
+					"visibility": "collapsed"
+				},
 				{
 					"id": "gitlens.views.commits",
 					"name": "Commits",
