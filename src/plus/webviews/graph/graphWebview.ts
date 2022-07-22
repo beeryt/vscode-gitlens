@@ -21,6 +21,7 @@ import {
 	DidChangeNotificationType,
 	GitBranch,
 	GitCommit,
+	GitCommitType,
 	GitRemote,
 	GitTag,
 	GraphColumnConfig,
@@ -304,16 +305,10 @@ function formatCommits(commits: (GitCommit | GitStashCommit)[]): GitCommit[] {
 	}));
 }
 
-// TODO: Move constant to a better home
-const enum CommitType {
-	CommitNode = 'commit-node',
-	StashNode = 'stash-node',
-}
-
-function getCommitType(commit: GitCommit | GitStashCommit): CommitType {
-	let type: CommitType = CommitType.CommitNode;
+function getCommitType(commit: GitCommit | GitStashCommit): GitCommitType {
+	let type = GitCommitType.COMMIT;
 	if (GitCommitModel.isStash(commit)) {
-		type = CommitType.StashNode;
+		type = GitCommitType.STASH;
 	}
 
 	// TODO: add other needed commit types for graph
